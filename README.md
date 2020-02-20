@@ -14,3 +14,6 @@ tensquare_article
 
 端口号：9004
 
+tensquare_gathering
+
+端口号：9005
