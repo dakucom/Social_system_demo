@@ -19,5 +19,5 @@ public interface ProblemDao extends JpaRepository<Problem,String>,JpaSpecificati
     @Query(value = "SELECT * FROM tb_problem, tb_pl WHERE id = problemid AND labelid = ? ORDER BY reply DESC", nativeQuery = true)
     Page<Problem> hotList(String labelId, Pageable pageable);//最热回复
     @Query(value = "SELECT * FROM tb_problem, tb_pl WHERE id = problemid AND labelid = ? AND reply = 0 ORDER BY createtime DESC", nativeQuery = true)
-    Page<Problem> waitList(String labelId, Pageable pageable);//
+    Page<Problem> waitList(String labelId, Pageable pageable);//等待回复列表
 }
