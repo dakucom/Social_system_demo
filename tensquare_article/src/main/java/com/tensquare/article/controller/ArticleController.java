@@ -45,6 +45,11 @@ public class ArticleController {
 		return new Result(true,  StatusCode.OK.getCode(),  "点赞成功");
 	}
 
+    /**
+     * 根据ID查询文章
+     * @param articleId
+     * @return
+     */
 	@GetMapping("/{articleId}")
 	public Result findById(@PathVariable String articleId) {
 		return new Result(true,  StatusCode.OK.getCode(),  "查询成功",  articleService.findById(articleId));

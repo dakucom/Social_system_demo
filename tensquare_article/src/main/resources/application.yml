@@ -12,7 +12,7 @@ spring:
     database: MySQL
     show-sql: true
   redis:
-    host: 192.168.43.228
+    host: 192.168.146.137
 eureka:
   client:
     serviceUrl:

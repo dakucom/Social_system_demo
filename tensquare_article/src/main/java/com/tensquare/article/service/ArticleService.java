@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import utils.IdWorker;
 
-import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -34,7 +33,7 @@ public class ArticleService {
 	@Autowired
 	private IdWorker idWorker;
 
-	@Resource
+	@Autowired
 	private RedisTemplate redisTemplate;
 
     public void updateState(String id) {
