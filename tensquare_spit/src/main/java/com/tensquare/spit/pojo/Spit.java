@@ -2,11 +2,13 @@ package com.tensquare.spit.pojo;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
+@Document(collection = "Spit")
 public class Spit implements Serializable {
     @Id
     private String _id;

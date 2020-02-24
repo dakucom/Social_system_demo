@@ -4,8 +4,9 @@ import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 
-/**
- * <p>名称：IdWorker.java</p>
+/*
+ * @Description:
+ *  * <p>名称：IdWorker.java</p>
  * <p>描述：分布式自增长ID</p>
  * <pre>
  *     Twitter的 Snowflake　JAVA实现方案
@@ -19,9 +20,9 @@ import java.net.NetworkInterface;
  * 并且效率较高，经测试，snowflake每秒能够产生26万ID左右，完全满足需要。
  * <p>
  * 64位ID (42(毫秒)+5(机器ID)+5(业务编码)+12(重复累加))
- *
- * @author Polim
- */
+ * @Author: dakuzai
+ * @Date: 2020/2/21 16:10
+ **/
 public class IdWorker {
     // 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
     private final static long twepoch = 1288834974657L;
@@ -52,16 +53,21 @@ public class IdWorker {
     // 数据标识id部分
     private final long datacenterId;
 
-    public IdWorker(){
+    public IdWorker() {
         this.datacenterId = getDatacenterId(maxDatacenterId);
         this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
     }
-    /**
+
+    /*
+     * @Description:IdWorker
+     *
+     * @Author: dakuzai
+     * @Date: 2020/2/21 16:12
      * @param workerId
      *            工作机器ID
      * @param datacenterId
      *            序列号
-     */
+     **/
     public IdWorker(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
@@ -72,11 +78,14 @@ public class IdWorker {
         this.workerId = workerId;
         this.datacenterId = datacenterId;
     }
-    /**
-     * 获取下一个ID
-     *
-     * @return
-     */
+
+    /*
+     * @Description: 获取下一个ID
+     * @Author: dakuzai
+     * @Date: 2020/2/21 16:13
+
+     * @return: long
+     **/
     public synchronized long nextId() {
         long timestamp = timeGen();
         if (timestamp < lastTimestamp) {
@@ -124,14 +133,14 @@ public class IdWorker {
         mpid.append(datacenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();
         if (!name.isEmpty()) {
-         /*
-          * GET jvmPid
-          */
+            /*
+             * GET jvmPid
+             */
             mpid.append(name.split("@")[0]);
         }
-      /*
-       * MAC + PID 的 hashcode 获取16个低位
-       */
+        /*
+         * MAC + PID 的 hashcode 获取16个低位
+         */
         return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
     }
 

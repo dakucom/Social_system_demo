@@ -2,37 +2,53 @@ package com.tensquare.spit.service;
 
 import com.tensquare.spit.dao.SpitDao;
 import com.tensquare.spit.pojo.Spit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import utils.IdWorker;
 
-import javax.annotation.Resource;
+import javax.persistence.criteria.Predicate;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 @Transactional
 public class SpitService {
-    @Resource(name = "spitDao")
-    private SpitDao dao;
-    @Resource(name = "idWorker")
-    private IdWorker idCreater;
-    @Resource
+    @Autowired
+    private SpitDao spitDao;
+    @Autowired
+    private IdWorker idWorker;
+    @Autowired
     private MongoTemplate mongoTemplate;
 
     public List<Spit> findAll() {
-        return dao.findAll();
+        return spitDao.findAll();
     }
+
     public Spit findById(String id) {
-        return dao.findById(id).orElse(null);
+        return spitDao.findById(id).orElse(null);
     }
+
+    /*
+     * @Description: 添加吐槽
+     * @Author: dakuzai
+     * @Date: 2020/2/21 16:08
+     * @param: Spit
+     * @return:
+     **/
     public void save(Spit spit) {
         // 指定id
-        spit.set_id(String.valueOf(idCreater.nextId()));
+        spit.set_id(String.valueOf(idWorker.nextId()));
         spit.setPublishtime(new Date());        // 发布日期
         spit.setVisits(0);      // 浏览量
         spit.setShare(0);       // 分享数
@@ -47,15 +63,30 @@ public class SpitService {
             update.inc("comment", 1);
             mongoTemplate.updateFirst(query, update, "spit");
         }
-        dao.save(spit);
-    }
-    public void update(Spit spit) {
-        dao.save(spit);
-    }
-    public void deleteById(String id) {
-        dao.deleteById(id);
+        spitDao.save(spit);
     }
 
+    /*
+     * @Description:
+     * @Author: dakuzai
+     * @Date: 2020/2/21 16:46
+     * @param Spit:
+     * @return: null
+     **/
+    public void update(Spit spit) {
+        spitDao.save(spit);
+    }
+
+    public void deleteById(String id) {
+        spitDao.deleteById(id);
+    }
+
+    /*
+     * @Description:点赞
+     * @Author: dakuzai
+     * @Date: 2020/2/21 16:51
+     * @param spitId:
+     **/
     public void thumbup(String spitId) {
         // 利用原生mongo命令实现自增  db.spit.update({"_id": "1"}, {$inc: {thumbup: NumberInt(1)}})
         Query query = new Query();
@@ -63,5 +94,20 @@ public class SpitService {
         Update update = new Update();
         update.inc("thumbup", 1);
         mongoTemplate.updateFirst(query, update, "spit");
+    }
+
+    public Page<Spit> findByParentId(String parentid, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return spitDao.findByParentid(parentid, pageable);
+    }
+
+    public Page<Spit> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return spitDao.findAll(pageable);
+    }
+
+    public List<Spit> searchSpit(Spit spit) {
+        Criteria criteria = new Criteria();
+        return null;
     }
 }

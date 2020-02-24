@@ -1,13 +1,13 @@
 server:
-  port: 9006
+  port: 9006 #指定端口号
 spring:
   application:
-    name: tensquare-spit
+    name: tensquare-spit #命名
   data:
     mongodb:
-      host: 192.168.43.228
+      host: 192.168.146.137
       database: spitdb
   redis:
-    host: 192.168.43.228
+    host: 192.168.146.137
 
 
