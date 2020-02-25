@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@Document(collection = "Spit")
 public class Spit implements Serializable {
     @Id
     private String _id;
