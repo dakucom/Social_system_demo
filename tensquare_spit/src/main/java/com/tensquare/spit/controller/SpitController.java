@@ -81,7 +81,7 @@ public class SpitController {
     }
 
     /*
-     * @Description:根据条件查询Spit列表
+     * @Description:根据条件查询Spit列表（待开发）
      * @Author: dakuzai
      * @Date: 2020/2/21 17:58
      * @param spit: Spit
@@ -89,6 +89,7 @@ public class SpitController {
      **/
     @PostMapping("/search")
     public Result searchSpit(@RequestBody Spit spit) {
+        System.out.println("spit的数据为："+spit.get_id());
         List<Spit> listSpit = spitService.searchSpit(spit);
         return new Result(true, StatusCode.OK.getCode(), "查询成功",listSpit);
     }

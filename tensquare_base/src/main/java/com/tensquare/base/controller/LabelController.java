@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@CrossOrigin            // 跨域
-@RefreshScope
+@CrossOrigin /**跨域*/
+@RefreshScope /**作用：自定义配置文件更新*/
 @RequestMapping("/label")
 public class LabelController {
     @Resource(name = "labelService")

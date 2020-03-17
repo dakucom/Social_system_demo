@@ -1,4 +1,5 @@
 package com.tensquare.sms.utils;
+
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;
@@ -14,10 +15,11 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  * 短信工具类
- * @author Administrator
  *
+ * @author Administrator
  */
 @Component
 public class SmsUtil {
@@ -34,15 +36,16 @@ public class SmsUtil {
 
     /**
      * 发送短信
-     * @param mobile 手机号
+     *
+     * @param mobile        手机号
      * @param template_code 模板号
-     * @param sign_name 签名
-     * @param param 参数
+     * @param sign_name     签名
+     * @param param         参数
      * @return
      * @throws ClientException
      */
-    public SendSmsResponse sendSms(String mobile,String template_code,String sign_name,String param) throws ClientException {
-        String accessKeyId =env.getProperty("aliyun.sms.accessKeyId");
+    public SendSmsResponse sendSms(String mobile, String template_code, String sign_name, String param) throws ClientException {
+        String accessKeyId = env.getProperty("aliyun.sms.accessKeyId");
         String accessKeySecret = env.getProperty("aliyun.sms.accessKeySecret");
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -70,8 +73,8 @@ public class SmsUtil {
         return sendSmsResponse;
     }
 
-    public  QuerySendDetailsResponse querySendDetails(String mobile,String bizId) throws ClientException {
-        String accessKeyId =env.getProperty("accessKeyId");
+    public QuerySendDetailsResponse querySendDetails(String mobile, String bizId) throws ClientException {
+        String accessKeyId = env.getProperty("accessKeyId");
         String accessKeySecret = env.getProperty("accessKeySecret");
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -97,4 +100,24 @@ public class SmsUtil {
         QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);
         return querySendDetailsResponse;
     }
+
+//    public static void main(String[] args) {
+//        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "<accessKeyId>", "<accessSecret>");
+//        IAcsClient client = new DefaultAcsClient(profile);
+//
+//        CommonRequest request = new CommonRequest();
+//        request.setSysMethod(MethodType.POST);
+//        request.setSysDomain("dysmsapi.aliyuncs.com");//请求默认地址
+//        request.setSysVersion("2017-05-25");
+//        request.setSysAction("SendSms");
+//        request.putQueryParameter("RegionId", "cn-hangzhou");
+//        try {
+//            CommonResponse response = client.getCommonResponse(request);
+//            System.out.println(response.getData());
+//        } catch (ServerException e) {
+//            e.printStackTrace();
+//        } catch (ClientException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

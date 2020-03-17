@@ -4,10 +4,13 @@ spring:
   application:
     name: tensquare-sms
   rabbitmq:
-    host: 192.168.0.109
+    host: 192.168.146.137
 
 aliyun:
   sms:
-    accessKeyId: LTAIpGYhPa6tmvUO
-    accessKeySecret: tTUTTAqzIZx0xfaICzSzZzoKZT1dM0
+    accessKeyId: LTAI4FnApbhjmg1FJnxsTGp2
+    accessKeySecret: mNXDJibHQyXrPf38BQia8Mj9zzQB29
+    template_code: SMS_185810920
+    sign_name: 论坛短信
+
 

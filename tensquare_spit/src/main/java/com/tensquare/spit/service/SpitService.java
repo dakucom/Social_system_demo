@@ -103,7 +103,12 @@ public class SpitService {
     }
 
     public List<Spit> searchSpit(Spit spit) {
-        Criteria criteria = new Criteria();
-        return null;
+        System.out.println("state======>" + spit.getState());
+        System.out.println("content======>" + spit.getContent());
+        System.out.println("id======>" + spit.get_id());
+        Query query = new Query();
+        query.addCriteria(Criteria.where("content").is(spit.getContent()));
+        List<Spit> spitList = mongoTemplate.find(query, Spit.class);
+        return spitList;
     }
 }

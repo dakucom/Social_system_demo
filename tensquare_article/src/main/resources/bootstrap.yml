@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: eureka
+      name: article
       profile: dev
       label: master
       uri: http://127.0.0.1:12000

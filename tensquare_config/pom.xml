@@ -43,7 +43,7 @@
                 <version>0.4.13</version>
                 <configuration>
                     <!-- 做成镜像后镜像的名称 -->
-                    <imageName>192.168.43.228:5000/${project.artifactId}:${project.parent.version}</imageName>
+                    <imageName>192.168.146.137:5000/${project.artifactId}:${project.parent.version}</imageName>
                     <!-- 基础镜像 -->
                     <baseImage>jdk1.8</baseImage>
                     <!-- 执行命令，打jar包 -->
@@ -55,7 +55,7 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <dockerHost>http://192.168.43.228:2375</dockerHost>
+                    <dockerHost>http://192.168.146.137:2375</dockerHost>
                 </configuration>
             </plugin>
         </plugins>
