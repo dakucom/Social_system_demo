@@ -21,3 +21,6 @@ tensquare_gathering
 tensquare_spit 吐槽
 
 端口号：9006
+
+
+[配置微服务](https://github.com/dakucom/social_system_configServer)
